@@ -138,15 +138,15 @@
 
   <h1>Predict Weather Bot <span style="font-weight:400;opacity:.6">v6.2</span></h1>
   <div class="hero">
-    <div class="hero-number loss">$-450.44</div>
-    <div class="hero-label">Total settled P&amp;L, 272 trade(s) settled, 39% win rate</div>
+    <div class="hero-number loss">$-451.43</div>
+    <div class="hero-label">Total settled P&amp;L, 274 trade(s) settled, 39% win rate</div>
   </div>
 
   <div class="conditions">
     <div><span class="label">Mode</span><span class="value">PAPER</span></div>
-    <div><span class="label">Deployed</span><span class="value">$38.20 / $50.00</span></div>
-    <div><span class="label">Open positions</span><span class="value">8</span></div>
-    <div><span class="label">Last updated</span><span class="value">2026-11-01 06:56 UTC</span></div>
+    <div><span class="label">Deployed</span><span class="value">$28.63 / $50.00</span></div>
+    <div><span class="label">Open positions</span><span class="value">6</span></div>
+    <div><span class="label">Last updated</span><span class="value">2026-11-01 14:11 UTC</span></div>
   </div>
 
   <section>
@@ -161,10 +161,10 @@
       
         <tr>
           <td>Austin</td>
-          <td>53</td>
-          <td>11</td>
+          <td>54</td>
+          <td>12</td>
           <td>42</td>
-          <td class="loss">$-167.07</td>
+          <td class="loss">$-163.00</td>
         </tr>
         <tr>
           <td>Chicago</td>
@@ -189,16 +189,16 @@
         </tr>
         <tr>
           <td>New York</td>
-          <td>55</td>
+          <td>56</td>
           <td>26</td>
-          <td>29</td>
-          <td class="loss">$-4.74</td>
+          <td>30</td>
+          <td class="loss">$-9.80</td>
         </tr>
     </table>
   </section>
 
   <section>
-    <h2>Open positions (8)</h2>
+    <h2>Open positions (6)</h2>
     <p class="neutral" style="margin: 4px 0 12px">Market day = the date the contract is about. Opened/settled times are UTC.</p>
     <table>
       <tr><th>City</th><th>Market day</th><th>Contract</th><th>Side</th><th>Position</th><th>Model</th><th>Opened</th><th>Status</th></tr>
@@ -263,6 +263,14 @@
       <td class="neutral">Oct 31, 08:04 UTC</td>
       <td class="neutral">open</td>
     </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Recent settled trades</h2>
+    <table>
+      <tr><th>City</th><th>Market day</th><th>Contract</th><th>Side</th><th>Position</th><th>Model</th><th>Opened</th><th>Outcome</th><th>Settled</th></tr>
+      
     <tr>
       <td>Austin</td>
       <td>Oct 31</td>
@@ -271,7 +279,7 @@
       <td>9x @ 53&cent;</td>
       <td>21%</td>
       <td class="neutral">Oct 30, 18:53 UTC</td>
-      <td class="neutral">open</td>
+      <td class="gain">NO &middot; $+4.07<br><span class="neutral" style="font-size:0.75rem">actual: high ≥ 77°F</span></td><td class="neutral">Nov 1, 14:11 UTC</td>
     </tr>
     <tr>
       <td>New York</td>
@@ -281,16 +289,8 @@
       <td>20x @ 24&cent;</td>
       <td>56%</td>
       <td class="neutral">Oct 30, 18:53 UTC</td>
-      <td class="neutral">open</td>
+      <td class="loss">YES &middot; $-5.06<br><span class="neutral" style="font-size:0.75rem">confirmed: high < 59°F</span></td><td class="neutral">Nov 1, 14:11 UTC</td>
     </tr>
-    </table>
-  </section>
-
-  <section>
-    <h2>Recent settled trades</h2>
-    <table>
-      <tr><th>City</th><th>Market day</th><th>Contract</th><th>Side</th><th>Position</th><th>Model</th><th>Opened</th><th>Outcome</th><th>Settled</th></tr>
-      
     <tr>
       <td>New York</td>
       <td>Oct 30</td>
@@ -521,26 +521,6 @@
       <td class="neutral">Oct 25, 19:56 UTC</td>
       <td class="loss">NO &middot; $-5.23</td><td class="neutral">Oct 27, 12:14 UTC</td>
     </tr>
-    <tr>
-      <td>New York</td>
-      <td>Oct 26</td>
-      <td>high 70-71°F</td>
-      <td>NO</td>
-      <td>7x @ 70&cent;</td>
-      <td>17%</td>
-      <td class="neutral">Oct 25, 19:56 UTC</td>
-      <td class="gain">NO &middot; $+1.99</td><td class="neutral">Oct 27, 12:14 UTC</td>
-    </tr>
-    <tr>
-      <td>New York</td>
-      <td>Oct 26</td>
-      <td>high < 68°F</td>
-      <td>YES</td>
-      <td>100x @ 5&cent;</td>
-      <td>18%</td>
-      <td class="neutral">Oct 25, 17:35 UTC</td>
-      <td class="loss">NO &middot; $-5.34<br><span class="neutral" style="font-size:0.75rem">actual: high ≥ 68°F</span></td><td class="neutral">Oct 27, 12:14 UTC</td>
-    </tr>
     </table>
   </section>
 
@@ -646,7 +626,7 @@
 
   <section>
     <h2>Model self-audit (Brier score)</h2>
-    <p class="neutral">4 settled trade(s) so far - need at least 30 for a meaningful reading.</p>
+    <p class="neutral">6 settled trade(s) so far - need at least 30 for a meaningful reading.</p>
   </section>
 
   <footer>
@@ -663,7 +643,7 @@ new Chart(ctx, {
     datasets: [
       {
         label: 'Cumulative P&L ($)',
-        data: [-7.55, -22.55, 4.79, -15.41, -19.82, -46.78, -46.78, -70.28, -70.28, -71.23, -79.55, -89.18, -97.81, -110.79, -118.28, -132.91, -140.17, -147.72, -149.34, -160.27, -166.85, -178.28, -185.99, -215.05, -203.85, -227.41, -240.14, -243.29, -256.33, -266.75, -275.71, -297.34, -302.3, -328.95, -324.83, -345.59, -350.62, -335.43, -327.59, -360.95, -365.62, -391.6, -389.2, -402.41, -402.41],
+        data: [-7.55, -22.55, 4.79, -15.41, -19.82, -46.78, -46.78, -70.28, -70.28, -71.23, -79.55, -89.18, -97.81, -110.79, -118.28, -132.91, -140.17, -147.72, -149.34, -160.27, -166.85, -178.28, -185.99, -215.05, -203.85, -227.41, -240.14, -243.29, -256.33, -266.75, -275.71, -297.34, -302.3, -328.95, -324.83, -345.59, -350.62, -335.43, -327.59, -360.95, -365.62, -391.6, -389.2, -402.41, -403.4],
         borderColor: '#E8A33D',
         backgroundColor: 'rgba(232, 163, 61, 0.12)',
         borderWidth: 2,
