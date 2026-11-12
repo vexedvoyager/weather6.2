@@ -112,6 +112,13 @@ def probability_of_exceeding(
     return round(min(max(raw, PROBABILITY_FLOOR), PROBABILITY_CEILING), 6)
 
 
+# v6.3: NBM percentiles are whole degrees, so p10 can equal p50 (or p50 can
+# equal p90). That made the tail sigma 0 and crashed Forecast Refresh with
+# ZeroDivisionError (run 2026-11-11T01Z). Floor the tail sigma at 1F - wider
+# than the data implies, which errs toward LESS confident tail probabilities.
+MIN_TAIL_SIGMA_F = 1.0
+
+
 def _probability_of_exceeding_raw(
     percentiles: dict, threshold: float, sigma_multiplier: float = 1.15
 ) -> float:
@@ -144,7 +151,7 @@ def _probability_of_exceeding_raw(
         # Extrapolate below P10 using a normal tail anchored at P10.
         z10 = _std_normal_ppf(0.10)  # negative
         local_sigma = abs((p50 - p10) / z10) if z10 != 0 else 1.0
-        local_sigma *= sigma_multiplier
+        local_sigma = max(local_sigma, MIN_TAIL_SIGMA_F) * sigma_multiplier
         z = (threshold - p10) / local_sigma + z10
         cdf_at_threshold = _std_normal_cdf(z)
         return round(1 - cdf_at_threshold, 6)
@@ -152,7 +159,7 @@ def _probability_of_exceeding_raw(
     else:  # threshold > p90
         z90 = _std_normal_ppf(0.90)  # positive
         local_sigma = abs((p90 - p50) / z90) if z90 != 0 else 1.0
-        local_sigma *= sigma_multiplier
+        local_sigma = max(local_sigma, MIN_TAIL_SIGMA_F) * sigma_multiplier
         z = (threshold - p90) / local_sigma + z90
         cdf_at_threshold = _std_normal_cdf(z)
         return round(1 - cdf_at_threshold, 6)
