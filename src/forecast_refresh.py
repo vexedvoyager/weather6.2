@@ -128,6 +128,21 @@ def run_forecast_refresh(cfg: dict):
     # they are simply never traded. See config.yaml's shadow_cities.
     all_cities = list(cfg["cities"]) + list(cfg.get("shadow_cities") or [])
 
+    # v6.3 sanity guard: different stations must not parse to identical
+    # forecasts. If they do, the bulletin layout has changed - refuse to
+    # cache anything and fail loudly rather than trade on one station's data.
+    ladders = {}
+    for city_cfg in all_cities:
+        parsed = nbm.parse_station_maxt(bulletin_text, city_cfg["expected_station"])
+        if parsed is not None:
+            ladders[city_cfg["expected_station"]] = json.dumps(
+                {k: parsed[k] for k in ("p10", "p25", "p50", "p75", "p90")})
+    if len(ladders) >= 3 and len(set(ladders.values())) == 1:
+        raise RuntimeError(
+            f"NBM parse sanity check failed: {len(ladders)} stations parsed to "
+            "the IDENTICAL forecast. The bulletin format has probably changed. "
+            "Nothing was cached this run.")
+
     for city_cfg in all_cities:
         city = city_cfg["name"]
         try:
@@ -194,9 +209,16 @@ def run_forecast_refresh(cfg: dict):
             pct = chosen["values"]
             valid_dt = nbm.valid_time_utc(run_id, chosen["forecast_hour"])
 
-            probs = model_probability_for_market(
-                threshold, pct, cfg["probability_model"]["sigma_multiplier"]
-            )
+            # v6.3: one bad market must not abort every other city's refresh.
+            try:
+                probs = model_probability_for_market(
+                    threshold, pct, cfg["probability_model"]["sigma_multiplier"]
+                )
+            except (ValueError, ZeroDivisionError) as e:
+                logger.warning("city=%s ticker=%s probability failed (%s) ladder=%s - skipping",
+                               city, ticker, e, pct)
+                rejection_counts["probability_error"] += 1
+                continue
             description = describe_threshold(threshold)
             db.upsert_forecast_cache(
                 db_path, ticker, city, probs["clamped"], run_id, description,
