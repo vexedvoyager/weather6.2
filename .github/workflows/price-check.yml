@@ -12,7 +12,7 @@ on:
   workflow_dispatch: {}
 
 concurrency:
-  group: predict-weather-bot-price-check
+  group: predict-weather-bot-db-writer
   cancel-in-progress: false
 
 jobs:
