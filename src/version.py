@@ -17,4 +17,4 @@ V6_START_ISO = "2026-10-22"
 # Versions whose forecasts were built from the WRONG NBM column (overnight minimum
 # instead of daily maximum) - see IMPROVEMENTS.md items #19/#24. Their results say
 # nothing about NBM's skill; reports score only the current version as the headline.
-INVALID_FORECAST_VERSIONS = ("v4", "v5", "v6.0")
+INVALID_FORECAST_VERSIONS = ("v4", "v5", "v6.0", "v6.2")
