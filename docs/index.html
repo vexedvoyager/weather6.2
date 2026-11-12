@@ -136,7 +136,7 @@
 <body>
 <div class="wrap">
 
-  <h1>Predict Weather Bot <span style="font-weight:400;opacity:.6">v6.2</span></h1>
+  <h1>Predict Weather Bot <span style="font-weight:400;opacity:.6">v6.3</span></h1>
   <div class="hero">
     <div class="hero-number loss">$-475.18</div>
     <div class="hero-label">Total settled P&amp;L, 321 trade(s) settled, 40% win rate</div>
@@ -146,7 +146,7 @@
     <div><span class="label">Mode</span><span class="value">PAPER</span></div>
     <div><span class="label">Deployed</span><span class="value">$47.15 / $50.00</span></div>
     <div><span class="label">Open positions</span><span class="value">10</span></div>
-    <div><span class="label">Last updated</span><span class="value">2026-11-11 22:53 UTC</span></div>
+    <div><span class="label">Last updated</span><span class="value">2026-11-12 03:37 UTC</span></div>
   </div>
 
   <section>
@@ -680,15 +680,7 @@
 
   <section>
     <h2>Model self-audit (Brier score)</h2>
-    
-        <div class="brier-grid">
-          <div><span class="label">Trades audited</span><span class="value">53</span></div>
-          <div><span class="label">Model Brier score</span><span class="value">0.3843</span></div>
-          <div><span class="label">Market price Brier</span><span class="value">0.2178</span></div>
-          <div><span class="label">Base rate Brier score</span><span class="value">0.2492</span></div>
-          <div><span class="label">Verdict</span><span class="value loss">NO SKILL</span></div>
-        </div>
-        <p class="neutral">(early read, 100+ needed for full confidence)</p>
+    <p class="neutral">No settled trades for this version yet - nothing to audit. (Earlier versions used the wrong NBM column and are excluded.)</p>
   </section>
 
   <footer>
@@ -701,11 +693,11 @@ const ctx = document.getElementById('pnlChart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["09-28", "09-29", "09-30", "10-01", "10-02", "10-03", "10-04", "10-05", "10-06", "10-07", "10-08", "10-09", "10-10", "10-11", "10-12", "10-13", "10-14", "10-15", "10-16", "10-17", "10-18", "10-19", "10-20", "10-21", "10-22", "10-23", "10-24", "10-25", "10-26", "10-27", "10-28", "10-29", "10-30", "10-31", "11-01", "11-02", "11-03", "11-04", "11-05", "11-06", "11-07", "11-08", "11-09", "11-10", "11-11"],
+    labels: ["09-29", "09-30", "10-01", "10-02", "10-03", "10-04", "10-05", "10-06", "10-07", "10-08", "10-09", "10-10", "10-11", "10-12", "10-13", "10-14", "10-15", "10-16", "10-17", "10-18", "10-19", "10-20", "10-21", "10-22", "10-23", "10-24", "10-25", "10-26", "10-27", "10-28", "10-29", "10-30", "10-31", "11-01", "11-02", "11-03", "11-04", "11-05", "11-06", "11-07", "11-08", "11-09", "11-10", "11-11", "11-12"],
     datasets: [
       {
         label: 'Cumulative P&L ($)',
-        data: [-8.32, -17.95, -26.58, -39.56, -47.05, -61.68, -68.94, -76.49, -78.11, -89.04, -95.62, -107.05, -114.76, -143.82, -132.62, -156.18, -168.91, -172.06, -185.1, -195.52, -204.48, -226.11, -231.07, -257.72, -253.6, -274.36, -279.39, -264.2, -256.36, -289.72, -294.39, -320.37, -317.97, -331.18, -337.21, -354.83, -353.46, -345.96, -355.01, -334.26, -324.07, -333.12, -347.43, -357.06, -355.92],
+        data: [-9.63, -18.26, -31.24, -38.73, -53.36, -60.62, -68.17, -69.79, -80.72, -87.3, -98.73, -106.44, -135.5, -124.3, -147.86, -160.59, -163.74, -176.78, -187.2, -196.16, -217.79, -222.75, -249.4, -245.28, -266.04, -271.07, -255.88, -248.04, -281.4, -286.07, -312.05, -309.65, -322.86, -328.89, -346.51, -345.14, -337.64, -346.69, -325.94, -315.75, -324.8, -339.11, -348.74, -347.6, -347.6],
         borderColor: '#E8A33D',
         backgroundColor: 'rgba(232, 163, 61, 0.12)',
         borderWidth: 2,
