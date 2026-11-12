@@ -19,7 +19,7 @@ on:
   workflow_dispatch: {}
 
 concurrency:
-  group: predict-weather-bot-forecast-refresh
+  group: predict-weather-bot-db-writer
   cancel-in-progress: false
 
 jobs:
