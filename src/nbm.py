@@ -173,7 +173,10 @@ def get_station_block(bulletin_text: str, station_id: str) -> list | None:
     # lines look like "KBWI NBM V5.0 NBP GUIDANCE 5/18/2026 1300 UTC".
     # Same leading-whitespace fix as station_pattern above - confirmed
     # against real data.
-    next_station_pattern = re.compile(r"^\s*[A-Z0-9]{3,4}\s+NBM\s+V", re.IGNORECASE)
+    # v6.3: loosened - from the Nov 3 2026 13Z run on, every city parsed to
+    # one identical forecast: the station-header pattern evidently stopped
+    # matching, so blocks ran to end-of-file and the LAST station won.
+    next_station_pattern = re.compile(r"^\s*[A-Z0-9]{3,5}\s+NBM", re.IGNORECASE)
     station_end = len(lines)
     for i in range(station_start + 1, len(lines)):
         if next_station_pattern.match(lines[i]):
@@ -266,7 +269,9 @@ def parse_station_maxt(bulletin_text: str, station_id: str) -> dict | None:
             continue
         label = stripped_start.split()[0].upper() if stripped_start.split() else ""
 
-        if label in PERCENTILE_FIELD_MAP:
+        # v6.3: FIRST occurrence wins. If the block boundary is ever missed
+        # again, later stations' rows can no longer overwrite this station's.
+        if label in PERCENTILE_FIELD_MAP and PERCENTILE_FIELD_MAP[label] not in percentile_rows:
             percentile_rows[PERCENTILE_FIELD_MAP[label]] = read_row_by_column(line)
 
     missing = set(PERCENTILE_FIELD_MAP.values()) - set(percentile_rows.keys())
